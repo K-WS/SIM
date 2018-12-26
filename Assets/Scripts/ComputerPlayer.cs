@@ -57,6 +57,11 @@ public class ComputerPlayer : MonoBehaviour {
         return GC.WhoseTurn();
     }
 
+    private string[][] getLoseCombinations()
+    {
+        return GC.loseCombinations();
+    }
+
     private GameObject getTurnRandom()
     {
         GameObject[] freeMoves = getFreeMoves();

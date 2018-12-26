@@ -16,6 +16,9 @@ public class GameControllerSIM : MonoBehaviour
     private int currentPlayer;
 
 
+    private string[][] loseCombos;
+
+
 
     //-----------------Initialization--------------------//
     //---------------------------------------------------//
@@ -23,9 +26,47 @@ public class GameControllerSIM : MonoBehaviour
     {
         allLinePrefabs = GameObject.FindGameObjectsWithTag("Unselected Line");
         freeLinePrefabs = allLinePrefabs;
+
         player = 0;
         computer = 1;
         currentPlayer = 0;
+
+
+        loseCombos = new string[][] { 
+            new string[] {"LineBlank","LineBlank (1)","LineBlank (13)"},
+            new string[] {"LineBlank","LineBlank (6)","LineBlank (10)"},
+            new string[] {"LineBlank","LineBlank (7)","LineBlank (12)"},
+            new string[] {"LineBlank","LineBlank (5)","LineBlank (9)"},
+
+            new string[] {"LineBlank (1)","LineBlank (2)","LineBlank (10)"},
+            new string[] {"LineBlank (1)","LineBlank (7)","LineBlank (14)"},
+            new string[] {"LineBlank (1)","LineBlank (8)","LineBlank (9)"},
+
+            new string[] {"LineBlank (2)","LineBlank (3)","LineBlank (14)"},
+            new string[] {"LineBlank (2)","LineBlank (8)","LineBlank (11)"},
+            new string[] {"LineBlank (2)","LineBlank (6)","LineBlank (13)"},
+
+            new string[] {"LineBlank (3)","LineBlank (4)","LineBlank (11)"},
+            new string[] {"LineBlank (3)","LineBlank (6)","LineBlank (12)"},
+            new string[] {"LineBlank (3)","LineBlank (7)","LineBlank (10)"},
+
+            new string[] {"LineBlank (4)","LineBlank (5)","LineBlank (12)"},
+            new string[] {"LineBlank (4)","LineBlank (7)","LineBlank (9)"},
+            new string[] {"LineBlank (4)","LineBlank (8)","LineBlank (14)"},
+
+            new string[] {"LineBlank (5)","LineBlank (8)","LineBlank (13)"},
+            new string[] {"LineBlank (5)","LineBlank (6)","LineBlank (11)"},
+
+            new string[] {"LineBlank (9)","LineBlank (10)","LineBlank (11)"},
+
+            new string[] {"LineBlank (12)","LineBlank (13)","LineBlank (14)"}
+        };
+
+        foreach (var line in allLinePrefabs)
+        {
+            Debug.Log(line.name == "LineBlank (6)");
+
+        }
     }
 
     //----------------Per Frame Update-------------------//
@@ -83,5 +124,9 @@ public class GameControllerSIM : MonoBehaviour
 
     public int WhoseTurn() {
         return currentPlayer;
+    }
+
+    public string[][] loseCombinations() {
+        return loseCombos;
     }
 }
