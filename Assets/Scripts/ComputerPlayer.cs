@@ -42,6 +42,21 @@ public class ComputerPlayer : MonoBehaviour {
         return GC.freeLinePrefabs;
     }
 
+    private GameObject[] getP1Lines()
+    {
+        return GC.p1Prefabs;
+    }
+
+    private GameObject[] getP2Lines()
+    {
+        return GC.p2Prefabs;
+    }
+
+    private int getCurrentPlayer()
+    {
+        return GC.WhoseTurn();
+    }
+
     private GameObject getTurnRandom()
     {
         GameObject[] freeMoves = getFreeMoves();

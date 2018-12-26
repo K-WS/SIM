@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class LineColorer : MonoBehaviour {
 
+
+    //----------------Initial Variables------------------//
+    //---------------------------------------------------//
     public Color defaultColor;
     public Color selectedColor;
     public Color player1;
@@ -14,17 +17,17 @@ public class LineColorer : MonoBehaviour {
     public GameControllerSIM GC;
 
     public bool selectable;
+    public int whichPlayer;
 
-	// Use this for initialization
-	void Start () {
+    //-----------------Initialization--------------------//
+    //---------------------------------------------------//
+    void Start () {
         selectable = true;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+        whichPlayer = -1;
 	}
 
+    //----------------Line Colorization------------------//
+    //---------------------------------------------------//
     public void ColorMe(int player)
     {
         if (player == 0) 
@@ -36,17 +39,12 @@ public class LineColorer : MonoBehaviour {
 
     //---------Hovering over an unselected line----------//
     //---------------------------------------------------//
-    private void OnMouseOver()
-    {
+    private void OnMouseOver() {
         if(selectable == true)
-        {
-            GetComponent<SpriteRenderer>().color = selectedColor;
-        }
-            
+            GetComponent<SpriteRenderer>().color = selectedColor; 
     }
 
-    private void OnMouseExit()
-    {
+    private void OnMouseExit() {
         if(selectable == true)
             GetComponent<SpriteRenderer>().color = defaultColor;
     }
@@ -61,9 +59,11 @@ public class LineColorer : MonoBehaviour {
         }
     }
 
-
+    //----Main function that updates color and sends-----//
+    //-----------the info to the controller--------------//
     public void doTurn() {
         int currentPlayer = GC.WhoseTurn();
+        whichPlayer = currentPlayer;
         ColorMe(currentPlayer);
         GC.UpdateInfo();
     }
