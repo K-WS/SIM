@@ -129,7 +129,7 @@ public class ComputerPlayer : MonoBehaviour {
 			foreach (int[] move in freeMoves) {
 				Dictionary<int[], int> gameStateNew = new Dictionary<int[], int>(gameState, new ArrayEqualityComparer());
 				gameStateNew[move] = player;
-				int moveRate = minimaxPrune(gameStateNew, depth - 1, player, false, alpha, beta);
+				int moveRate = minimaxPrune(gameStateNew, depth - 1, player, false, alpha, beta) + 1; // "+ 1" to prefer losing later
 				if (moveRate > bestRate) {
 					bestRate = moveRate;
 				}
@@ -146,7 +146,7 @@ public class ComputerPlayer : MonoBehaviour {
 			foreach (int[] move in freeMoves) {
 				Dictionary<int[], int> gameStateNew = new Dictionary<int[], int>(gameState, new ArrayEqualityComparer());
 				gameStateNew[move] = otherPlayer(player);
-				int moveRate = minimaxPrune(gameStateNew, depth - 1, player, true, alpha, beta);
+				int moveRate = minimaxPrune(gameStateNew, depth - 1, player, true, alpha, beta) - 1; // "- 1" to prefer losing later
 				if (moveRate < bestRate) {
 					bestRate = moveRate;
 				}
