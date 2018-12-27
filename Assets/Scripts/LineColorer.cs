@@ -63,9 +63,13 @@ public class LineColorer : MonoBehaviour {
     //-----------the info to the controller--------------//
     public void doTurn() {
         int currentPlayer = GC.WhoseTurn();
-        whichPlayer = currentPlayer;
-        ColorMe(currentPlayer);
-        GC.UpdateInfo();
+        if(currentPlayer != -1)
+        {
+            whichPlayer = currentPlayer;
+            ColorMe(currentPlayer);
+            GC.UpdateInfo();
+        }
+        
     }
 
 }

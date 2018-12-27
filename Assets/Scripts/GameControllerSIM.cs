@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameControllerSIM : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class GameControllerSIM : MonoBehaviour
     private int computer;
     private int currentPlayer;
 
+    public Button p1Button;
+    public Button p2Button;
+
+
 
     private string[][] loseCombos;
 
@@ -27,9 +32,12 @@ public class GameControllerSIM : MonoBehaviour
         allLinePrefabs = GameObject.FindGameObjectsWithTag("Unselected Line");
         freeLinePrefabs = allLinePrefabs;
 
-        player = 0;
-        computer = 1;
+        player = -1;
+        computer = -1;
         currentPlayer = 0;
+
+        p1Button.onClick.AddListener(() => buttonClicked(0, 1));
+        p2Button.onClick.AddListener(() => buttonClicked(1, 0));
 
 
         loseCombos = new string[][] { 
@@ -114,6 +122,10 @@ public class GameControllerSIM : MonoBehaviour
         p2Prefabs = p2Lines.ToArray();
 
 
+        //---Loss Declaration---//
+        //----------------------//
+
+
         //---Change player---//
         //-------------------//
         if (currentPlayer == 0)
@@ -122,11 +134,24 @@ public class GameControllerSIM : MonoBehaviour
             currentPlayer = 0;
     }
 
+    public void setPlayers(int pl, int ai) {
+        player = pl;
+        computer = ai;
+    }
+
     public int WhoseTurn() {
         return currentPlayer;
     }
 
     public string[][] loseCombinations() {
         return loseCombos;
+    }
+
+    private void buttonClicked(int plr, int com)
+    {
+        player = plr;
+        computer = com;
+        p1Button.gameObject.SetActive(false);
+        p2Button.gameObject.SetActive(false);
     }
 }
