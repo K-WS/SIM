@@ -542,6 +542,16 @@ Prefab:
       propertyPath: p2Button
       value: 
       objectReference: {fileID: 49230757}
+    - target: {fileID: 114496727958874046, guid: 82b179b56f7d4c94ba2e12a7b9b4808c,
+        type: 2}
+      propertyPath: P1Win
+      value: 
+      objectReference: {fileID: 1972253049}
+    - target: {fileID: 114496727958874046, guid: 82b179b56f7d4c94ba2e12a7b9b4808c,
+        type: 2}
+      propertyPath: P2Win
+      value: 
+      objectReference: {fileID: 1676964541}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82b179b56f7d4c94ba2e12a7b9b4808c, type: 2}
   m_IsPrefabAsset: 0
@@ -1636,8 +1646,11 @@ MonoBehaviour:
   p1Prefabs: []
   p2Prefabs: []
   CP: {fileID: 1510487122}
+  startText: {fileID: 0}
   p1Button: {fileID: 1017667102}
   p2Button: {fileID: 49230757}
+  P1Win: {fileID: 1972253049}
+  P2Win: {fileID: 1676964541}
 --- !u!4 &1465478132
 Transform:
   m_ObjectHideFlags: 0

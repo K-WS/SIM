@@ -16,8 +16,12 @@ public class GameControllerSIM : MonoBehaviour
     private int computer;
     private int currentPlayer;
 
+
+    public Text startText;
     public Button p1Button;
     public Button p2Button;
+    public Image P1Win;
+    public Image P2Win;
 
 
 
@@ -70,11 +74,11 @@ public class GameControllerSIM : MonoBehaviour
             new string[] {"LineBlank (12)","LineBlank (13)","LineBlank (14)"}
         };
 
-        foreach (var line in allLinePrefabs)
+        /*foreach (var line in allLinePrefabs)
         {
             Debug.Log(line.name == "LineBlank (6)");
 
-        }
+        }*/
     }
 
     //----------------Per Frame Update-------------------//
@@ -125,6 +129,20 @@ public class GameControllerSIM : MonoBehaviour
         //---Loss Declaration---//
         //----------------------//
 
+        foreach (var combo in loseCombos) {
+            bool check = checkLoss(combo);
+
+            if(check == true)
+            {
+                //TODO add player check to show who wins.
+                if (currentPlayer == 0)
+                    P2Win.gameObject.SetActive(true);
+                else
+                    P1Win.gameObject.SetActive(true);
+                return;
+            }
+        }
+
 
         //---Change player---//
         //-------------------//
@@ -153,5 +171,32 @@ public class GameControllerSIM : MonoBehaviour
         computer = com;
         p1Button.gameObject.SetActive(false);
         p2Button.gameObject.SetActive(false);
+        startText.gameObject.SetActive(false);
+    }
+
+    private bool checkLoss(string[] combo)
+    {
+        GameObject[] checkable;
+        if (currentPlayer == 0)
+            checkable = p1Prefabs;
+        else
+            checkable = p2Prefabs;
+
+        int inARow = 0;
+
+        foreach (string name in combo)
+        {
+            foreach(GameObject prefab in checkable)
+            {
+                if(prefab.name == name)
+                {
+                    inARow++;
+                    break;
+                }
+            }
+        }
+        if (inARow == 3)
+            return true;
+        return false;
     }
 }
