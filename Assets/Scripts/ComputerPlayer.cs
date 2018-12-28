@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 public class ComputerPlayer : MonoBehaviour {
 
-	// TODO
+	// Comparer for integer arrays to be able to index by them
 	public class ArrayEqualityComparer : IEqualityComparer<int[]> {
 		public bool Equals(int[] x, int[] y) {
 			if (x.Length != y.Length) {
@@ -33,13 +33,21 @@ public class ComputerPlayer : MonoBehaviour {
 
     public GameControllerSIM GC;
 
+	// int codes for players
 	static int playerNone = -1;
 	static int player1 = 0;
 	static int player2 = 1;
+
+	// max minimax depth
 	static int minimaxDepth = 9;
+
+	// forced delay of AI move
 	static int minMoveTimeMS = 200;
+
+	// map of scene objects to in memory representation of them
 	private static Dictionary<string, int[]> lineMap;
 
+	// initialize lineMap
 	static ComputerPlayer() {
 		lineMap = new Dictionary<string, int[]>();
 		lineMap.Add("LineBlank (1)", new int[] { 0, 1 });
@@ -59,7 +67,9 @@ public class ComputerPlayer : MonoBehaviour {
 		lineMap.Add("LineBlank (5)", new int[] { 4, 5 });
 	}
 
+	// make move, board state and player will be received from GameControllerSIM instance
 	public void getTurn() {
+		// start timer
 		Stopwatch timer = new Stopwatch();
 		timer.Start();
 		// build game state
@@ -84,19 +94,22 @@ public class ComputerPlayer : MonoBehaviour {
 				break;
 			}
 		}
-		// do move
+		// stop timer, make sure that enough time has elapsed since start of turn
 		timer.Stop();
 		int runtime = (int) timer.ElapsedMilliseconds;
 		if (runtime < minMoveTimeMS) {
 			System.Threading.Thread.Sleep(minMoveTimeMS - runtime);
 		}
-        bestLine.GetComponent<LineColorer>().doTurn();
+		// do move
+		bestLine.GetComponent<LineColorer>().doTurn();
     }
 
+	// wrapper for minimax, does the first iteration of minimax itself to keep track of which move was the best
 	private int[] getMoveMinimaxPrune(Dictionary<int[], int> gameState, int player) {
 		List<int[]> freeMoves = getAvailableMoves(gameState);
 		int bestRate = -200;
 		int[] bestMove = null;
+		// initialize alpha and beta
 		int alpha = -200;
 		int beta = 200;
 		foreach (int[] move in freeMoves) {
@@ -117,7 +130,9 @@ public class ComputerPlayer : MonoBehaviour {
 		return bestMove;
 	}
 
+	// minimax with alpha-beta pruning, only return rating of best move, not the move itself
 	private int minimaxPrune(Dictionary<int[], int> gameState, int depth, int player, bool maximize, int alpha, int beta) {
+		// check if game is over already
 		int loser = getLoser(gameState);
 		if (loser != playerNone) {
 			if (loser == player) {
@@ -127,6 +142,7 @@ public class ComputerPlayer : MonoBehaviour {
 				return 100;
 			}
 		}
+		// check if max depth reached
 		if (depth == 0) {
 			return getRate(gameState, player);
 		}
@@ -170,6 +186,7 @@ public class ComputerPlayer : MonoBehaviour {
 		return bestRate;
 	}
 
+	// returns rating of game state for the player
 	private int getRate(Dictionary<int[], int> gameState, int player) {
 		int loser = getLoser(gameState);
 		if (loser == playerNone) {
@@ -181,6 +198,7 @@ public class ComputerPlayer : MonoBehaviour {
 		}
 	}
 
+	// returns the integer code of other player
 	private int otherPlayer(int player) {
 		if (player == player1) {
 			return player2;
@@ -191,6 +209,7 @@ public class ComputerPlayer : MonoBehaviour {
 		}
 	}
 
+	// return a list of all available moves
 	private List<int[]> getAvailableMoves(Dictionary<int[], int> gameState) {
 		List<int[]> freeMoves = new List<int[]>();
 		foreach (KeyValuePair<int[], int> entry in gameState) {
@@ -201,6 +220,7 @@ public class ComputerPlayer : MonoBehaviour {
 		return freeMoves;
 	}
 
+	// returns the code of player who has lost or the playerNone code if neither has lost yet
 	private int getLoser(Dictionary<int[], int> gameState) {
 		for (int i1 = 0; i1 < 4; i1++) {
 			for (int i2 = i1 + 1; i2 < 5; i2++) {
