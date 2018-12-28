@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Diagnostics;
 
 public class ComputerPlayer : MonoBehaviour {
 
@@ -36,6 +37,7 @@ public class ComputerPlayer : MonoBehaviour {
 	static int player1 = 0;
 	static int player2 = 1;
 	static int minimaxDepth = 9;
+	static int minMoveTimeMS = 200;
 	private static Dictionary<string, int[]> lineMap;
 
 	static ComputerPlayer() {
@@ -58,6 +60,8 @@ public class ComputerPlayer : MonoBehaviour {
 	}
 
 	public void getTurn() {
+		Stopwatch timer = new Stopwatch();
+		timer.Start();
 		// build game state
 		GameObject[] lineObjects = getAllLines();
 		Dictionary<int[], int> gameState = new Dictionary<int[], int>(new ArrayEqualityComparer());
@@ -81,6 +85,11 @@ public class ComputerPlayer : MonoBehaviour {
 			}
 		}
 		// do move
+		timer.Stop();
+		int runtime = (int) timer.ElapsedMilliseconds;
+		if (runtime < minMoveTimeMS) {
+			System.Threading.Thread.Sleep(minMoveTimeMS - runtime);
+		}
         bestLine.GetComponent<LineColorer>().doTurn();
     }
 
