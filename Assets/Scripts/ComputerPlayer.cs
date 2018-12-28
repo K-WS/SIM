@@ -44,6 +44,8 @@ public class ComputerPlayer : MonoBehaviour {
 	// forced delay of AI move
 	static int minMoveTimeMS = 200;
 
+	private System.Random rand = new System.Random();
+
 	// map of scene objects to in memory representation of them
 	private static Dictionary<string, int[]> lineMap;
 
@@ -217,7 +219,20 @@ public class ComputerPlayer : MonoBehaviour {
 				freeMoves.Add(entry.Key);
 			}
 		}
+		// shuffle the list to make AI select randomly between equal rating moves
+		shuffle(freeMoves);
 		return freeMoves;
+	}
+
+	// shuffle list of int arrays
+	private void shuffle(List<int[]> l) {
+		for (int i = 0; i < l.Count; i++) {
+			int k = rand.Next(i, l.Count);
+			// swap items at index i and k
+			int[] temp = l[i];
+			l[i] = l[k];
+			l[k] = temp;
+		}
 	}
 
 	// returns the code of player who has lost or the playerNone code if neither has lost yet
