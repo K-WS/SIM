@@ -84,7 +84,7 @@ public class GameControllerSIM : MonoBehaviour
 
         foreach (GameObject line in allLinePrefabs)
         {
-            line.gameObject.SetActive(false);
+			line.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         }
 
     }
@@ -156,7 +156,7 @@ public class GameControllerSIM : MonoBehaviour
 
                 foreach (GameObject line in freeLinePrefabs)
                 {
-                    line.gameObject.SetActive(false);
+					line.gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 }
 
                 //indicate that game can now restart
@@ -200,7 +200,7 @@ public class GameControllerSIM : MonoBehaviour
 
         foreach (GameObject line in allLinePrefabs)
         {
-            line.gameObject.SetActive(true);
+			line.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 
