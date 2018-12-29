@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameControllerSIM : MonoBehaviour
 {
@@ -24,8 +25,13 @@ public class GameControllerSIM : MonoBehaviour
     public Image P2Win;
 
 
-
     private string[][] loseCombos;
+
+    private bool resetStarted;
+    private float resetTime;
+    private float resetStartTime;
+    private float currentTime;
+
 
 
 
@@ -39,6 +45,8 @@ public class GameControllerSIM : MonoBehaviour
         player = -1;
         computer = -1;
         currentPlayer = 0;
+        resetStarted = false;
+        resetTime = 5;
 
         p1Button.onClick.AddListener(() => buttonClicked(0, 1));
         p2Button.onClick.AddListener(() => buttonClicked(1, 0));
@@ -74,11 +82,11 @@ public class GameControllerSIM : MonoBehaviour
             new string[] {"LineBlank (12)","LineBlank (13)","LineBlank (14)"}
         };
 
-        /*foreach (var line in allLinePrefabs)
+        foreach (GameObject line in allLinePrefabs)
         {
-            Debug.Log(line.name == "LineBlank (6)");
+            line.gameObject.SetActive(false);
+        }
 
-        }*/
     }
 
     //----------------Per Frame Update-------------------//
@@ -89,8 +97,15 @@ public class GameControllerSIM : MonoBehaviour
         {
             CP.getTurn();
         }
+        if(resetStarted == true)
+        {
+            currentTime = Time.time;
 
-
+            if(currentTime - resetStartTime >= resetTime)
+            {
+                SceneManager.LoadScene("MainGame");
+            }
+        }
     }
 
     //-------------Controller Info Update----------------//
@@ -134,11 +149,21 @@ public class GameControllerSIM : MonoBehaviour
 
             if(check == true)
             {
-                //TODO add player check to show who wins.
                 if (currentPlayer == 0)
                     P2Win.gameObject.SetActive(true);
                 else
                     P1Win.gameObject.SetActive(true);
+
+                foreach (GameObject line in freeLinePrefabs)
+                {
+                    line.gameObject.SetActive(false);
+                }
+
+                //indicate that game can now restart
+
+                resetStartTime = Time.time;
+                resetStarted = true;
+
                 return;
             }
         }
@@ -172,6 +197,11 @@ public class GameControllerSIM : MonoBehaviour
         p1Button.gameObject.SetActive(false);
         p2Button.gameObject.SetActive(false);
         startText.gameObject.SetActive(false);
+
+        foreach (GameObject line in allLinePrefabs)
+        {
+            line.gameObject.SetActive(true);
+        }
     }
 
     private bool checkLoss(string[] combo)
