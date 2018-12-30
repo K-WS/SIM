@@ -788,7 +788,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4953695198327058, guid: f720f0b4d57403d4bbb31fd331396045, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4953695198327058, guid: f720f0b4d57403d4bbb31fd331396045, type: 2}
       propertyPath: m_LocalRotation.x
@@ -834,7 +834,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4953695198327058, guid: f720f0b4d57403d4bbb31fd331396045, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4953695198327058, guid: f720f0b4d57403d4bbb31fd331396045, type: 2}
       propertyPath: m_LocalRotation.x
@@ -997,7 +997,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4953695198327058, guid: f720f0b4d57403d4bbb31fd331396045, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4953695198327058, guid: f720f0b4d57403d4bbb31fd331396045, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1352,7 +1352,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4953695198327058, guid: f720f0b4d57403d4bbb31fd331396045, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4953695198327058, guid: f720f0b4d57403d4bbb31fd331396045, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1398,7 +1398,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4953695198327058, guid: f720f0b4d57403d4bbb31fd331396045, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4953695198327058, guid: f720f0b4d57403d4bbb31fd331396045, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1444,7 +1444,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4953695198327058, guid: f720f0b4d57403d4bbb31fd331396045, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4953695198327058, guid: f720f0b4d57403d4bbb31fd331396045, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1882,7 +1882,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 67.9, y: 70}
+  m_AnchoredPosition: {x: 67.9, y: 76.9}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1583934782
@@ -1917,7 +1917,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Select your player
+  m_Text: 'Select your player
+
+    (Escape to quit)'
 --- !u!222 &1583934783
 CanvasRenderer:
   m_ObjectHideFlags: 0

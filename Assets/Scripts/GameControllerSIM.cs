@@ -93,6 +93,10 @@ public class GameControllerSIM : MonoBehaviour
     //---------------------------------------------------//
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
+
         if (currentPlayer == computer)
         {
             CP.getTurn();
